@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Stylish {
     public static void main(String[] args) throws Exception {
-        System.out.println(Differ.generate("file1.json", "file2.json"));
+        System.out.println(Differ.generate("file3.json", "file4.json"));
     }
 
     public static String getFormatted(List<Map<String, Object>> difference) {
@@ -27,7 +27,7 @@ public class Stylish {
             }
             return 0;
         });
-        return String.join("\n", sortedList);
+        return "{\n" + String.join("\n", sortedList) + "\n}";
     }
 
     private static ArrayList<String> getStrings(List<Map<String, Object>> difference) {
