@@ -174,7 +174,7 @@ public class TestDiffer {
     @Test
     public void testGenerate7() throws Exception {
         var actual = generate("file3.json", "file4.json", "json");
-        Path path = Parser.pathToFullPath("expected/jsonExpected.json");
+        Path path = Differ.pathToFullPath("expected/jsonExpected.json");
         var expected = Files.readString(path);
         assertEquals(actual, expected);
     }
@@ -182,7 +182,7 @@ public class TestDiffer {
     @Test
     public void testGenerate8() throws Exception {
         var actual = generate("file3.yml", "file4.yml", "json");
-        Path path = Parser.pathToFullPath("expected/jsonExpected.json");
+        Path path = Differ.pathToFullPath("expected/jsonExpected.json");
         var expected = Files.readString(path);
         assertEquals(actual, expected);
     }

@@ -1,5 +1,8 @@
 package hexlet.code;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -15,8 +18,8 @@ public class Differ {
         var unchanged = new LinkedHashMap<String, Object>();
         var updated = new LinkedHashMap<String, Object>();
 
-        Map<String, Object> map1 = Parser.parse(filepath1);
-        Map<String, Object> map2 = Parser.parse(filepath2);
+        Map<String, Object> map1 = getData(filepath1);
+        Map<String, Object> map2 = getData(filepath2);
 
         set.addAll(map1.keySet());
         set.addAll(map2.keySet());
@@ -50,8 +53,8 @@ public class Differ {
         var unchanged = new LinkedHashMap<String, Object>();
         var updated = new LinkedHashMap<String, Object>();
 
-        Map<String, Object> map1 = Parser.parse(filepath1);
-        Map<String, Object> map2 = Parser.parse(filepath2);
+        Map<String, Object> map1 = getData(filepath1);
+        Map<String, Object> map2 = getData(filepath2);
 
         set.addAll(map1.keySet());
         set.addAll(map2.keySet());
@@ -74,5 +77,35 @@ public class Differ {
         differenceList.add(unchanged);
         differenceList.add(updated);
         return Formatter.getFormatted(differenceList, format);
+    }
+
+    private static Map<String, Object> getData(String filePath) throws Exception {
+        Path fullPath = pathToFullPath(filePath);
+        if (!Files.exists(fullPath)) {
+            throw new Exception("File '" + fullPath + "' does not exist");
+        }
+        String content = Files.readString(fullPath);
+        String dataFormat = getDataFormat(filePath);
+        return Parser.parse(content, dataFormat);
+    }
+
+    public static Path pathToFullPath(String path) {
+        String path1 = "src/main/resources";
+        File file = new File(path1);
+        String absolutePath = file.getAbsolutePath();
+        Path resultPath = Path.of(path);
+        if (!path.startsWith("/")) {
+            resultPath = Path.of(absolutePath + "/" + path);
+        }
+        if (new File(resultPath.toString()).exists()) {
+            return resultPath;
+        }
+        throw new RuntimeException("File: " + resultPath + " does not exist");
+    }
+    private static String getDataFormat(String filePath) {
+        int index = filePath.lastIndexOf('.');
+        return index > 0
+                ? filePath.substring(index + 1)
+                : "";
     }
 }
