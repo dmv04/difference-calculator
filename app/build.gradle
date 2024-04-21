@@ -15,9 +15,7 @@ application {
 repositories {
     mavenCentral()
 }
-checkstyle {
-    toolVersion = '10.12.4'
-}
+
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.2')
     testImplementation 'org.junit.jupiter:junit-jupiter'

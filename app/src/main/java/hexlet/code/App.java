@@ -11,7 +11,8 @@ import java.util.concurrent.Callable;
         = "Compares two configuration files and shows a difference.")
 
 public class App implements Callable {
-    @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
+    @Option(names = {"-f", "--format"}, defaultValue = "stylish",
+            paramLabel = "format", description = "output format [default: stylish]")
     String format;
     @Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
     private String filepath1;
@@ -20,11 +21,19 @@ public class App implements Callable {
 
     @Override
     public Object call() throws Exception {
-        System.out.println(Differ.generate(filepath1, filepath2));
+        if (format.equals("plain")) {
+            System.out.println(Differ.generate(filepath1, filepath2, "plain"));
+        } else if (format.equals("json")) {
+            System.out.println(Differ.generate(filepath1, filepath2, "json"));
+        } else if (format.equals("stylish")) {
+            System.out.println(Differ.generate(filepath1, filepath2));
+        } else {
+            System.out.println(format + " format is unknown or unsupported");
+        }
         return 0;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
