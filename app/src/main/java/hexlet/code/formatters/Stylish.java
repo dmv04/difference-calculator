@@ -27,7 +27,7 @@ public class Stylish {
             }
             return 0;
         });
-        return "{\n" + String.join("\n  ", sortedList) + "\n}";
+        return "{\n  " + String.join("\n  ", sortedList) + "\n}";
     }
 
     private static ArrayList<String> getStrings(List<Map<String, Object>> difference) {
