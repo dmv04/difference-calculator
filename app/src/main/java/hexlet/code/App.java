@@ -21,15 +21,8 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        if (format.equals("plain")) {
-            System.out.println(Differ.generate(filepath1, filepath2, "plain"));
-        } else if (format.equals("json")) {
-            System.out.println(Differ.generate(filepath1, filepath2, "json"));
-        } else if (format.equals("stylish")) {
-            System.out.println(Differ.generate(filepath1, filepath2));
-        } else {
-            System.out.println(format + " format is unknown or unsupported");
-        }
+        String file =  Differ.generate(filepath1, filepath2, format);
+        System.out.println(file);
         return 0;
     }
 
