@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
 @Command(name = "genDiff", mixinStandardHelpOptions = true, description
         = "Compares two configuration files and shows a difference.")
 
-public class App implements Callable {
+public class App implements Callable<Integer> {
     @Option(names = {"-f", "--format"}, defaultValue = "stylish",
             paramLabel = "format", description = "output format [default: stylish]")
     private String format;
@@ -20,25 +20,13 @@ public class App implements Callable {
     private String filepath2;
 
     @Override
-    public Object call() {
+    public Integer call() throws Exception {
         if (format.equals("plain")) {
-            try {
-                System.out.println(Differ.generate(filepath1, filepath2, "plain"));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            System.out.println(Differ.generate(filepath1, filepath2, "plain"));
         } else if (format.equals("json")) {
-            try {
-                System.out.println(Differ.generate(filepath1, filepath2, "json"));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            System.out.println(Differ.generate(filepath1, filepath2, "json"));
         } else if (format.equals("stylish")) {
-            try {
-                System.out.println(Differ.generate(filepath1, filepath2));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            System.out.println(Differ.generate(filepath1, filepath2));
         } else {
             System.out.println(format + " format is unknown or unsupported");
         }
