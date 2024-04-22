@@ -18,7 +18,10 @@ public class App implements Callable<Integer> {
     private String filepath1;
     @Parameters(index = "1", paramLabel = "filepath2", description = "path to second file")
     private String filepath2;
-
+    /**
+     * @return returns a string of differences between 2 files
+     * @throws Exception  if files not exist
+     */
     @Override
     public Integer call() throws Exception {
         String file =  Differ.generate(filepath1, filepath2, format);
