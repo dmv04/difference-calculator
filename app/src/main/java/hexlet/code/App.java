@@ -13,20 +13,32 @@ import java.util.concurrent.Callable;
 public class App implements Callable {
     @Option(names = {"-f", "--format"}, defaultValue = "stylish",
             paramLabel = "format", description = "output format [default: stylish]")
-    String format;
+    private String format;
     @Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
     private String filepath1;
     @Parameters(index = "1", paramLabel = "filepath2", description = "path to second file")
     private String filepath2;
 
     @Override
-    public Object call() throws Exception {
+    public Object call() {
         if (format.equals("plain")) {
-            System.out.println(Differ.generate(filepath1, filepath2, "plain"));
+            try {
+                System.out.println(Differ.generate(filepath1, filepath2, "plain"));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         } else if (format.equals("json")) {
-            System.out.println(Differ.generate(filepath1, filepath2, "json"));
+            try {
+                System.out.println(Differ.generate(filepath1, filepath2, "json"));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         } else if (format.equals("stylish")) {
-            System.out.println(Differ.generate(filepath1, filepath2));
+            try {
+                System.out.println(Differ.generate(filepath1, filepath2));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         } else {
             System.out.println(format + " format is unknown or unsupported");
         }

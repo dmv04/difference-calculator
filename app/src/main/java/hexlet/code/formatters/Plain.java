@@ -11,27 +11,31 @@ public class Plain {
     public static void main(String[] args) throws Exception {
         System.out.println(Differ.generate("file3.json", "file4.json", "plain"));
     }
+    private static final int INDEX_OF_TEMP_STRING_DATA = 13;
+    private static final int INDEX_OF_REMOVED_STRINGS = 0;
+    private static final int INDEX_OF_ADDED_STRINGS = 1;
+    private static final int INDEX_OF_UPDATED_STRINGS = 3;
 
     public static String getFormatted(List<Map<String, Object>> difference) {
         var sortedList = new ArrayList<String>();
-        var removed = difference.get(0);
+        var removed = difference.get(INDEX_OF_REMOVED_STRINGS);
         for (Map.Entry<String, Object> pair : removed.entrySet()) {
             sortedList.add("Property '" + pair.getKey() + "' was removed");
         }
-        var added = difference.get(1);
+        var added = difference.get(INDEX_OF_ADDED_STRINGS);
         for (Map.Entry<String, Object> pair : added.entrySet()) {
             sortedList.add("Property '" + pair.getKey() + "' was added with value: " + convertedValue(pair.getValue()));
         }
-        var updated = difference.get(3);
+        var updated = difference.get(INDEX_OF_UPDATED_STRINGS);
         var result = new StringBuilder();
         for (Map.Entry<String, Object> pair : updated.entrySet()) {
             if (pair.getValue() != null && pair.getKey().contains("old value")) {
                 result = new StringBuilder();
-                result.append("Property '").append(pair.getKey().substring(13))
+                result.append("Property '").append(pair.getKey().substring(INDEX_OF_TEMP_STRING_DATA))
                         .append("' was updated. From ").append(convertedValue(pair.getValue()));
             } else if (pair.getValue() == null && pair.getKey().contains("old value")) {
                 result = new StringBuilder();
-                result.append("Property '").append(pair.getKey().substring(13))
+                result.append("Property '").append(pair.getKey().substring(INDEX_OF_TEMP_STRING_DATA))
                         .append("' was updated. From ").append(convertedValue(pair.getValue()));
             } else if (pair.getKey().contains("new value")) {
                 result.append(" to ").append(convertedValue(pair.getValue()));

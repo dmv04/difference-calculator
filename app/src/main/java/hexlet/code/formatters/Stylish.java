@@ -11,6 +11,11 @@ public class Stylish {
     public static void main(String[] args) throws Exception {
         System.out.println(Differ.generate("file3.json", "file4.json"));
     }
+    private static final int INDEX_OF_TEMP_STRING_DATA = 13;
+    private static final int INDEX_OF_REMOVED_STRINGS = 0;
+    private static final int INDEX_OF_ADDED_STRINGS = 1;
+    private static final int INDEX_OF_UNCHANGED_STRINGS = 2;
+    private static final int INDEX_OF_UPDATED_STRINGS = 3;
 
     public static String getFormatted(List<Map<String, Object>> difference) {
         var sortedList = getStrings(difference);
@@ -33,24 +38,24 @@ public class Stylish {
     private static ArrayList<String> getStrings(List<Map<String, Object>> difference) {
         var sortedList = new ArrayList<String>();
 
-        var removed = difference.get(0);
+        var removed = difference.get(INDEX_OF_REMOVED_STRINGS);
         for (Map.Entry<String, Object> pair : removed.entrySet()) {
             sortedList.add("- " + pair.getKey() + ": " + pair.getValue());
         }
-        var added = difference.get(1);
+        var added = difference.get(INDEX_OF_ADDED_STRINGS);
         for (Map.Entry<String, Object> pair : added.entrySet()) {
             sortedList.add("+ " + pair.getKey() + ": " + pair.getValue());
         }
-        var unchanged = difference.get(2);
+        var unchanged = difference.get(INDEX_OF_UNCHANGED_STRINGS);
         for (Map.Entry<String, Object> pair : unchanged.entrySet()) {
             sortedList.add("  " + pair.getKey() + ": " + pair.getValue());
         }
-        var updated = difference.get(3);
+        var updated = difference.get(INDEX_OF_UPDATED_STRINGS);
         for (Map.Entry<String, Object> pair : updated.entrySet()) {
             if (pair.getKey().contains("old value")) {
-                sortedList.add("- " + pair.getKey().substring(13) + ": " + pair.getValue());
+                sortedList.add("- " + pair.getKey().substring(INDEX_OF_TEMP_STRING_DATA) + ": " + pair.getValue());
             } else if (pair.getKey().contains("new value")) {
-                sortedList.add("+ " + pair.getKey().substring(13) + ": " + pair.getValue());
+                sortedList.add("+ " + pair.getKey().substring(INDEX_OF_TEMP_STRING_DATA) + ": " + pair.getValue());
             }
         }
         return sortedList;
