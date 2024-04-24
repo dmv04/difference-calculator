@@ -1,16 +1,11 @@
 package hexlet.code.formatters;
 
-import hexlet.code.Differ;
-
 import java.util.Comparator;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Stylish {
-    public static void main(String[] args) throws Exception {
-        System.out.println(Differ.generate("file3.json", "file4.json"));
-    }
     private static final int INDEX_OF_TEMP_STRING_DATA = 13;
     private static final int INDEX_OF_REMOVED_STRINGS = 0;
     private static final int INDEX_OF_ADDED_STRINGS = 1;
