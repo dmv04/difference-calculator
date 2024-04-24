@@ -27,7 +27,7 @@ public class TestDiffer {
 
     @Test
     public void testGenerate3() throws Exception {
-        var actual = generate("file3.json", "file4.json", FormatType.stylish);
+        var actual = generate("file3.json", "file4.json", "stylish");
         Path path = Differ.pathToFullPath("expected/StylishExpected.txt");
         var expected = Files.readString(path);
         assertEquals(actual, expected);
@@ -35,7 +35,7 @@ public class TestDiffer {
 
     @Test
     public void testGenerate4() throws Exception {
-        var actual = generate("file3.yml", "file4.yml", FormatType.stylish);
+        var actual = generate("file3.yml", "file4.yml", "stylish");
         Path path = Differ.pathToFullPath("expected/StylishExpected.txt");
         var expected = Files.readString(path);
         assertEquals(actual, expected);
@@ -43,7 +43,7 @@ public class TestDiffer {
 
     @Test
     public void testGenerate5() throws Exception {
-        var actual = generate("file3.json", "file4.json", FormatType.plain);
+        var actual = generate("file3.json", "file4.json", "plain");
         Path path = Differ.pathToFullPath("expected/PlainExpected.txt");
         var expected = Files.readString(path);
         assertEquals(actual, expected);
@@ -51,7 +51,7 @@ public class TestDiffer {
 
     @Test
     public void testGenerate6() throws Exception {
-        var actual = generate("file3.yml", "file4.yml", FormatType.plain);
+        var actual = generate("file3.yml", "file4.yml", "plain");
         Path path = Differ.pathToFullPath("expected/PlainExpected.txt");
         var expected = Files.readString(path);
         assertEquals(actual, expected);
@@ -59,7 +59,7 @@ public class TestDiffer {
 
     @Test
     public void testGenerate7() throws Exception {
-        var actual = generate("file3.json", "file4.json", FormatType.json);
+        var actual = generate("file3.json", "file4.json", "json");
         Path path = Differ.pathToFullPath("expected/JsonExpected.txt");
         var expected = Files.readString(path);
         assertEquals(actual, expected);
@@ -67,7 +67,7 @@ public class TestDiffer {
 
     @Test
     public void testGenerate8() throws Exception {
-        var actual = generate("file3.yml", "file4.yml", FormatType.json);
+        var actual = generate("file3.yml", "file4.yml", "json");
         Path path = Differ.pathToFullPath("expected/JsonExpected.txt");
         var expected = Files.readString(path);
         assertEquals(actual, expected);

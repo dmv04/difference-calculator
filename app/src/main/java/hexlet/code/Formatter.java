@@ -8,16 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Formatter {
-    public static String getFormatted(List<Map<String, Object>> difference, FormatType formatType) throws Exception {
+    public static String getFormatted(List<Map<String, Object>> difference, String formatType) throws Exception {
         StringBuilder result = new StringBuilder();
         switch (formatType) {
-            case json:
+            case "json":
                 result.append(JsonFormatter.getFormatted(difference));
                 break;
-            case plain:
+            case "plain":
                 result.append(Plain.getFormatted(difference));
                 break;
-            case stylish:
+            case "stylish":
                 result.append(Stylish.getFormatted(difference));
                 break;
             default:

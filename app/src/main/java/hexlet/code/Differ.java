@@ -16,10 +16,10 @@ public class Differ {
         Map<String, Object> map1 = getData(filepath1);
         Map<String, Object> map2 = getData(filepath2);
         var differenceList = getDifference(map1, map2);
-        return Formatter.getFormatted(differenceList, FormatType.stylish);
+        return Formatter.getFormatted(differenceList, "stylish");
     }
 
-    public static String generate(String filepath1, String filepath2, FormatType formatType) throws Exception {
+    public static String generate(String filepath1, String filepath2, String formatType) throws Exception {
         Map<String, Object> map1 = getData(filepath1);
         Map<String, Object> map2 = getData(filepath2);
         var differenceList = getDifference(map1, map2);
