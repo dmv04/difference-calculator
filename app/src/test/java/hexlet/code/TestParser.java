@@ -16,7 +16,7 @@ class ParserTest {
     void shouldReturnExpectedData() throws Exception {
         Path path = Differ.pathToFullPath("expected/JsonExpected.txt");
         var content = Files.readString(path);
-        final Map<String, Object> actual = parse(content,"json");
+        final Map<String, Object> actual = parse(content, "json");
         final Map<String, Object> expected = Map.of(
                 "key_string", "value",
                 "key_boolean", true,
