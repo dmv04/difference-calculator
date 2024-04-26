@@ -32,7 +32,7 @@ test {
 }
 
 checkstyle {
-    classpath = files()
+    configFile = rootProject.file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 jacocoTestReport {
