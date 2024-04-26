@@ -30,6 +30,9 @@ test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
 }
+checkstyle {
+    toolVersion = '10.12.4'
+}
 
 jacocoTestReport {
     reports {
