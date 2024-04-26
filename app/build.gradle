@@ -32,7 +32,7 @@ test {
 }
 
 checkstyle {
-    configFile = rootProject.file("config/checkstyle/checkstyle.xml")
+    toolVersion '10.2'
 }
 
 jacocoTestReport {
