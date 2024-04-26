@@ -31,6 +31,9 @@ test {
     finalizedBy jacocoTestReport
 }
 
+checkstyle {
+    classpath = files()
+}
 
 jacocoTestReport {
     reports {
