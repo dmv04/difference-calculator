@@ -1,49 +1,30 @@
 package hexlet.code.formatters;
 
-import hexlet.code.Differ;
+import hexlet.code.Status;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
+
+import static hexlet.code.Status.CHANGED;
+import static hexlet.code.Status.DELETED;
+import static hexlet.code.Status.ADDED;
 
 public class Plain {
-    public static void main(String[] args) throws Exception {
-        System.out.println(Differ.generate("file3.json","file4.json","plain"));
-    }
-    private static final int INDEX_OF_TEMP_STRING_DATA = 13;
-    private static final int INDEX_OF_REMOVED_STRINGS = 0;
-    private static final int INDEX_OF_ADDED_STRINGS = 1;
-    private static final int INDEX_OF_UPDATED_STRINGS = 3;
-
-    public static String getFormatted(List<Map<String, Object>> difference) {
-        var sortedList = new ArrayList<String>();
-        var removed = difference.get(INDEX_OF_REMOVED_STRINGS);
-        for (Map.Entry<String, Object> pair : removed.entrySet()) {
-            sortedList.add("Property '" + pair.getKey() + "' was removed");
-        }
-        var added = difference.get(INDEX_OF_ADDED_STRINGS);
-        for (Map.Entry<String, Object> pair : added.entrySet()) {
-            sortedList.add("Property '" + pair.getKey() + "' was added with value: " + stringify(pair.getValue()));
-        }
-        var updated = difference.get(INDEX_OF_UPDATED_STRINGS);
-        var result = new StringBuilder();
-        for (Map.Entry<String, Object> pair : updated.entrySet()) {
-            if (pair.getValue() != null && pair.getKey().contains("old value")) {
-                result = new StringBuilder();
-                result.append("Property '").append(pair.getKey().substring(INDEX_OF_TEMP_STRING_DATA))
-                        .append("' was updated. From ").append(stringify(pair.getValue()));
-            } else if (pair.getValue() == null && pair.getKey().contains("old value")) {
-                result = new StringBuilder();
-                result.append("Property '").append(pair.getKey().substring(INDEX_OF_TEMP_STRING_DATA))
-                        .append("' was updated. From ").append(stringify(pair.getValue()));
-            } else if (pair.getKey().contains("new value")) {
-                result.append(" to ").append(stringify(pair.getValue()));
-                sortedList.add(result.toString());
+    public static String getFormatted(Map<String, Status> difference) {
+        var result = new ArrayList<String>();
+        for (Map.Entry<String, Status> pair : difference.entrySet()) {
+            switch (pair.getValue().getStatusName()) {
+                case DELETED -> result.add("Property '" + pair.getKey() + "' was removed");
+                case ADDED ->
+                        result.add("Property '" + pair.getKey() + "' was added with value: "
+                                + stringify(pair.getValue().getValue()));
+                case CHANGED -> result.add("Property '" + pair.getKey() + "' was updated. From "
+                        + stringify(pair.getValue().getOldValue()) + " to " + stringify(pair.getValue().getNewValue()));
+                default -> throw new IllegalStateException("Unexpected value: " + pair.getValue().getStatusName());
             }
         }
-        sortedList.sort(Comparator.comparing(String::toString));
-        return String.join("\n", sortedList);
+        return String.join("\n", result);
     }
 
     private static String stringify(Object value) {

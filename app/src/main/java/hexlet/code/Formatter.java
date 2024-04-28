@@ -4,11 +4,10 @@ import hexlet.code.formatters.Plain;
 import hexlet.code.formatters.Stylish;
 import hexlet.code.formatters.JsonFormatter;
 
-import java.util.List;
 import java.util.Map;
 
 public class Formatter {
-    public static String getFormatted(List<Map<String, Object>> difference, String formatType) throws Exception {
+    public static String getFormatted(Map<String, Status> difference, String formatType) throws Exception {
         StringBuilder result = new StringBuilder();
         switch (formatType) {
             case "json":
