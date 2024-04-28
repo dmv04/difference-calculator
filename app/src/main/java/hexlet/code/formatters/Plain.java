@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
-import static hexlet.code.Status.CHANGED;
-import static hexlet.code.Status.DELETED;
 import static hexlet.code.Status.ADDED;
+import static hexlet.code.Status.DELETED;
+import static hexlet.code.Status.CHANGED;
+import static hexlet.code.Status.UNCHANGED;
+
 
 public class Plain {
     public static String getFormatted(Map<String, Status> difference) {
@@ -21,6 +23,7 @@ public class Plain {
                                 + stringify(pair.getValue().getValue()));
                 case CHANGED -> result.add("Property '" + pair.getKey() + "' was updated. From "
                         + stringify(pair.getValue().getOldValue()) + " to " + stringify(pair.getValue().getNewValue()));
+                case UNCHANGED -> { }
                 default -> throw new IllegalStateException("Unexpected value: " + pair.getValue().getStatusName());
             }
         }
