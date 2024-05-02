@@ -1,76 +1,57 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import static hexlet.code.Differ.generate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class TestDiffer {
-    @Test
-    public void testGenerate1() throws Exception {
-        var actual = generate("file3.json", "file4.json");
-        Path path = Differ.pathToFullPath("expected/StylishExpected.txt");
-        var expected = Files.readString(path);
-        assertEquals(actual, expected);
+    private static String resultJson;
+    private static String resultPlain;
+    private static String resultStylish;
+
+    @BeforeAll
+    public static void beforeAll() throws Exception {
+        resultJson = readFixture("JsonExpected.txt");
+        resultPlain = readFixture("PlainExpected.txt");
+        resultStylish = readFixture("StylishExpected.txt");
     }
 
-    @Test
-    public void testGenerate2() throws Exception {
-        var actual = generate("file3.yml", "file4.yml");
-        Path path = Differ.pathToFullPath("expected/StylishExpected.txt");
-        var expected = Files.readString(path);
-        assertEquals(actual, expected);
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    public void generateTest(String format) throws Exception {
+        String filePath1 = getFixturePath("file1." + format).toString();
+        String filePath2 = getFixturePath("file2." + format).toString();
+
+        assertThat(Differ.generate(filePath1, filePath2))
+                .isEqualTo(resultStylish);
+
+        assertThat(Differ.generate(filePath1, filePath2, "stylish"))
+                .isEqualTo(resultStylish);
+
+        assertThat(Differ.generate(filePath1, filePath2, "plain"))
+                .isEqualTo(resultPlain);
+
+        assertThat(Differ.generate(filePath1, filePath2, "json"))
+                .isEqualTo(resultJson);
+
+
     }
 
-    @Test
-    public void testGenerate3() throws Exception {
-        var actual = generate("file3.json", "file4.json", "stylish");
-        Path path = Differ.pathToFullPath("expected/StylishExpected.txt");
-        var expected = Files.readString(path);
-        assertEquals(actual, expected);
+
+    private static Path getFixturePath(String fileName) {
+        return Paths.get("src", "test", "resources", "fixtures", fileName)
+                .toAbsolutePath().normalize();
     }
 
-    @Test
-    public void testGenerate4() throws Exception {
-        var actual = generate("file3.yml", "file4.yml", "stylish");
-        Path path = Differ.pathToFullPath("expected/StylishExpected.txt");
-        var expected = Files.readString(path);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testGenerate5() throws Exception {
-        var actual = generate("file3.json", "file4.json", "plain");
-        Path path = Differ.pathToFullPath("expected/PlainExpected.txt");
-        var expected = Files.readString(path);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testGenerate6() throws Exception {
-        var actual = generate("file3.yml", "file4.yml", "plain");
-        Path path = Differ.pathToFullPath("expected/PlainExpected.txt");
-        var expected = Files.readString(path);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testGenerate7() throws Exception {
-        var actual = generate("file3.json", "file4.json", "json");
-        Path path = Differ.pathToFullPath("expected/JsonExpected.txt");
-        var expected = Files.readString(path);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testGenerate8() throws Exception {
-        var actual = generate("file3.yml", "file4.yml", "json");
-        Path path = Differ.pathToFullPath("expected/JsonExpected.txt");
-        var expected = Files.readString(path);
-        assertEquals(actual, expected);
+    private static String readFixture(String fileName) throws Exception {
+        Path filePath = getFixturePath(fileName);
+        return Files.readString(filePath).trim();
     }
 
 }
