@@ -22,6 +22,10 @@ public class TestDiffer {
         resultStylish = readFixture("StylishExpected.txt");
     }
 
+    /**
+     * @param format indicate file type
+     * @throws Exception  if files not exist
+     */
     @ParameterizedTest
     @ValueSource(strings = {"json", "yml"})
     public void generateTest(String format) throws Exception {
@@ -39,7 +43,6 @@ public class TestDiffer {
 
         assertThat(Differ.generate(filePath1, filePath2, "json"))
                 .isEqualTo(resultJson);
-
 
     }
 
