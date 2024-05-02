@@ -10,10 +10,7 @@ import static hexlet.code.DifferenceCalculator.getDifference;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2) throws Exception {
-        Map<String, Object> map1 = getData(filepath1);
-        Map<String, Object> map2 = getData(filepath2);
-        var differenceList = getDifference(map1, map2);
-        return Formatter.getFormatted(differenceList, "stylish");
+        return generate(filepath1, filepath2, "stylish");
     }
 
     public static String generate(String filepath1, String filepath2, String formatType) throws Exception {
