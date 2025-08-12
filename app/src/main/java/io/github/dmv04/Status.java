@@ -1,4 +1,4 @@
-package hexlet.code;
+package io.github.dmv04;
 
 public final class Status {
 

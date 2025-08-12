@@ -1,11 +1,11 @@
-package hexlet.code;
+package io.github.dmv04;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-import static hexlet.code.DifferenceCalculator.getDifference;
+import static io.github.dmv04.DifferenceCalculator.getDifference;
 
 
 public class Differ {

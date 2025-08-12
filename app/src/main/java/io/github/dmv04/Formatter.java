@@ -1,8 +1,8 @@
-package hexlet.code;
+package io.github.dmv04;
 
-import hexlet.code.formatters.Plain;
-import hexlet.code.formatters.Stylish;
-import hexlet.code.formatters.JsonFormatter;
+import io.github.dmv04.formatters.Plain;
+import io.github.dmv04.formatters.Stylish;
+import io.github.dmv04.formatters.JsonFormatter;
 
 import java.util.Map;
 

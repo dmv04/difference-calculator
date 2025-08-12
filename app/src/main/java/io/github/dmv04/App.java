@@ -1,4 +1,4 @@
-package hexlet.code;
+package io.github.dmv04;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;

@@ -1,14 +1,14 @@
-package hexlet.code;
+package io.github.dmv04;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.TreeMap;
 
-import static hexlet.code.Status.ADDED;
-import static hexlet.code.Status.DELETED;
-import static hexlet.code.Status.UNCHANGED;
-import static hexlet.code.Status.CHANGED;
+import static io.github.dmv04.Status.ADDED;
+import static io.github.dmv04.Status.DELETED;
+import static io.github.dmv04.Status.UNCHANGED;
+import static io.github.dmv04.Status.CHANGED;
 
 public class DifferenceCalculator {
     public static Map<String, Status> getDifference(
