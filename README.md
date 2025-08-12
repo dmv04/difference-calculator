@@ -1,6 +1,3 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/1d66404e424a42b7388e/maintainability)](https://codeclimate.com/github/DmitryVerchenko/java-project-71/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/1d66404e424a42b7388e/test_coverage)](https://codeclimate.com/github/DmitryVerchenko/java-project-71/test_coverage)
-
 # 🔍 Калькулятор различий (Difference Calculator)
 
 Простое консольное приложение на Java, которое **сравнивает два файла с данными** и выводит разницу в удобочитаемом формате.
